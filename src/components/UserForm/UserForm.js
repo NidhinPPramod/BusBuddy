@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import { db } from "../../Firebase/config";
 import { collection, addDoc,getDocs } from "firebase/firestore";
-import UseForms from "./components/useForms";
+import UseForms from "../UserForm/useForms";
 
 function UserForm() {
   const [users, setUsers] = useState([])
