@@ -14,11 +14,13 @@ function UserForm() {
     getDocs(collectionRef).then((response) => {
       setUsers(response.docs.map((obj) => ({ ...obj.data(), id: obj.id })));
     });
-  }, []);
+  }, [collectionRef]);
 
   const addDocs = async () => {
     //CREATE
     await addDoc(collectionRef, {
+      Name:localStorage.getItem("name"),
+      ProfUrl:localStorage.getItem("profilePic"),
       To: value.To,
       From: value.From,
     });
@@ -27,8 +29,8 @@ function UserForm() {
   return (
     <div>
       <h1>Enter User Details</h1>
-      <input type="text" value={users.Name} />
-      <input type="number" value={users.Distance} />
+      <input type="text" disabled value={localStorage.getItem("name")} />
+      <input type="text" disabled value={localStorage.getItem("profilePic")} />
       <input
         type="text"
         value={value.To}
