@@ -9,6 +9,8 @@ Cochin University of Science And Technology.
 Team Members
 ● Nidhin P Pramod
 ● Sai Krishna
+● Neethika Sumesh
+
 
 Project Abstract
 Cusat Bus Buddy is a web application designed to improve the bus services inside the
