@@ -24,6 +24,7 @@ function App() {
   }, []);
 
   const signOut=()=>{
+    localStorage.clear()
     auth.signOut()
   }
 

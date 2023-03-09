@@ -1,11 +1,14 @@
 import React, { useState,useEffect } from "react";
 import { db } from "../../Firebase/config";
 import { collection, addDoc,getDocs } from "firebase/firestore";
-import UseForms from "../UserForm/useForms";
+import UseForms from "../Utils/useForms";
 
 function UserForm() {
   const [users, setUsers] = useState([])
+  const [count, setCount] = useState(0)
   const collectionRef = collection(db, "UserDetails");
+
+  const counterRef=collection(db,"Counters")
 
   const [value, handleChange] = UseForms({ To: "", From: "" });
 
@@ -14,11 +17,18 @@ function UserForm() {
     getDocs(collectionRef).then((response) => {
       setUsers(response.docs.map((obj) => ({ ...obj.data(), id: obj.id })));
     });
+
   }, [collectionRef]);
 
   const addDocs = async () => {
     //CREATE
     await addDoc(collectionRef, {
+      Name:localStorage.getItem("name"),
+      ProfUrl:localStorage.getItem("profilePic"),
+      To: value.To,
+      From: value.From,
+    });
+    await addDoc(counterRef, {
       Name:localStorage.getItem("name"),
       ProfUrl:localStorage.getItem("profilePic"),
       To: value.To,
