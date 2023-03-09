@@ -35,7 +35,7 @@ function App() {
         <p>Welcome, <br/><UserForm/><br/>
         <button onClick={signOut}>Google Sign Out</button></p>
       ) : (
-        <p>Please sign in<br/><GoogleAuth/></p>
+        <p><br/><GoogleAuth/></p>
       )}
     </div>
   );

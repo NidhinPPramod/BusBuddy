@@ -55,7 +55,7 @@ function UserForm() {
         placeholder="Enter From Location"
         onChange={handleChange}
       />
-      <button onClick={addDocs}>Submit</button>̥
+      <button  onClick={addDocs}>Submit</button>̥
     </div>
   );
 }

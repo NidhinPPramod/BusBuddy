@@ -17,8 +17,8 @@ const GoogleAuth = () => {
     }
     return (
         <div className="d-flex justify-content-center align-items-center flex-column">
-            <button className="btn btn-outline-primary my-3" onClick={googleAuth}>Sign In With Google
-                <i className="fa-brands fa-google mx-2"/></button>
+            <button className="btn btn-info" onClick={googleAuth}>Sign In With Google
+                <i className="fa-brands fa-google "/></button>
         </div>
     )
 }
