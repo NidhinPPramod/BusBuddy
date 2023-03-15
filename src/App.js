@@ -1,43 +1,12 @@
-import './App.css';
-import UserForm from './components/UserForm/UserForm';
-import GoogleAuth from "./Firebase/auth"
-import {auth} from "./Firebase/config"
-import {useEffect,useState} from 'react'
+import "./App.css";
+import AppRouter from "./components/AppRouter/AppRouter";
+import AuthContextProvider from "./Contexts/AuthContext";
 
 function App() {
-  const [user, setUser] = useState(null);
-
-  
- 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        // User is authenticated
-        setUser(user);
-      } else {
-        // User is not authenticated
-        setUser(null);
-      }
-    });
-
-    return unsubscribe;
-  }, []);
-
-  const signOut=()=>{
-    localStorage.clear()
-    auth.signOut()
-  }
-
-
   return (
-   <div>
-      {user ? (
-        <p>Welcome, <br/><UserForm/><br/>
-        <button onClick={signOut}>Google Sign Out</button></p>
-      ) : (
-        <p><br/><GoogleAuth/></p>
-      )}
-    </div>
+    <AuthContextProvider>
+      <AppRouter />
+    </AuthContextProvider>
   );
 }
 

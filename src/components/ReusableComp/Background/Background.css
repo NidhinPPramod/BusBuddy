@@ -1,0 +1,12 @@
+.background{
+    display: flex;
+    height: 100vh;
+    background: linear-gradient(
+        to bottom,
+        #222831 0%,
+        #222831 25%,
+        #EEEEEE 25%,
+        #EEEEEE 100%
+
+    );
+}
