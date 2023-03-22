@@ -4,9 +4,9 @@ import AuthContextProvider from "./Contexts/AuthContext";
 
 function App() {
   return (
-    <AuthContextProvider>
-      <AppRouter />
-    </AuthContextProvider>
+      <AuthContextProvider>
+        <AppRouter />
+      </AuthContextProvider>
   );
 }
 

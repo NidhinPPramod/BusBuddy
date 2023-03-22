@@ -1,65 +1,32 @@
 import React from "react";
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  Outlet,
-  RouterProvider,
-} from "react-router-dom";
+import { BrowserRouter as Router,Route, Routes } from "react-router-dom";
+import { useAuth } from "../../Contexts/AuthContext";
 import AccountPage from "../Pages/Account/AccountPage";
-import DriverDetailsPage from "../Pages/DriverDetails/DriverDetailsPage";
-import Home from "../Pages/Home/Home";
+import HomePage from "../Pages/Home/HomePage";
+import LocationPage from "../Pages/Location/LocationPage";
 import LoginPage from "../Pages/Login/LoginPage";
 import SignUpPage from "../Pages/SignUp/SignUpPage";
 
 
 function AppRouter() {
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<Root/>}>
-        <Route
-          index
-          path="/"
-          element={<SignUpPage/>
-          }
-        />
-        <Route
-          path="/login"
-          element={<LoginPage/>
-          }
-        />
-        <Route
-          path="/home"
-          element={<Home/>
-          }
-        />
-        <Route
-          path="/driverdetails"
-          element={<DriverDetailsPage/>
-          }
-        />
-        <Route
-          path="/account"
-          element={<AccountPage/>
-          }
-        />
-      </Route>
-    )
-  );
 
+  const {currentUser}=useAuth()
+  
   return (
     <>
-      <RouterProvider router={router} />
+      <Router>
+        <Routes>
+          <Route index path="/" element={<SignUpPage />} />
+          {/** PROTECTED ROUTES*/}
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/location" element={<LocationPage />} />
+          
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
+      </Router>
     </>
   );
 }
-
-const Root = () => {
-  return (
-    <>
-      <Outlet />
-    </>
-  );
-};
 
 export default AppRouter;

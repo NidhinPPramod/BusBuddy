@@ -60,7 +60,7 @@ function SignUp() {
           />
         </div>
         {errors.email && touched.email ? (
-          <p className="text-white text-xs">{errors.email}</p>
+          <p className="text-white text-xs font-mono">{errors.email}</p>
         ) : null}
         <div className="relative flex items-center">
           <KeyIcon className="w-6 h-6 absolute ml-3" />
@@ -75,7 +75,7 @@ function SignUp() {
           />
         </div>
         {errors.password && touched.password ? (
-          <p className="text-white text-xs">{errors.password}</p>
+          <p className="text-white text-xs font-mono">{errors.password}</p>
         ) : null}
         <div className="relative flex items-center">
           <KeyIcon className="w-6 h-6 absolute ml-3" />
@@ -90,7 +90,7 @@ function SignUp() {
           />
         </div>
         {errors.confirmPassword && touched.confirmPassword ? (
-          <p className="text-white text-xs">{errors.confirmPassword}</p>
+          <p className="text-white text-xs font-mono">{errors.confirmPassword}</p>
         ) : null}
         <button
           className="bg-faded-blue text-white py-2 px-4 rounded-lg my-4 "
