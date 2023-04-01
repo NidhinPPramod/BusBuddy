@@ -9,7 +9,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { UserCircleIcon, KeyIcon } from "@heroicons/react/24/solid";
-import { useFormik} from "formik";
+import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { logInSchema } from "../../../Schemas/index";
 import { useToast } from "@chakra-ui/react";
@@ -22,7 +22,7 @@ const initialValues = {
 };
 
 function Login() {
-  // const history = useNavigate();
+  const history = useNavigate();
 
   const initialRef = useRef(null);
 
@@ -31,36 +31,37 @@ function Login() {
 
   const { login, forgotPassword } = useAuth();
 
-  const { values, errors, handleChange, handleBlur, touched } =
-    useFormik({
-      initialValues: initialValues,
-      validationSchema: logInSchema,
-    });
+  const { values, errors, handleChange, handleBlur, touched } = useFormik({
+    initialValues: initialValues,
+    validationSchema: logInSchema,
+  });
 
-    const handleLogin =  (e) => {
-      e.preventDefault();
-      login(values.email, values.password)
-          .then((response) => {
-            console.log(response);
-            toast({
-              description: "User Logged in Succesfully!",
-              status: "success",
-              duration: 5000,
-              isClosable: true,
-            });
-          })
-          .catch((err) => {
-            toast({
-              description: err.message,
-              status: "error",
-              duration: 5000,
-              isClosable: true,
-            });
-          })
-    };
+  const handleLogin = (e) => {
+    e.preventDefault();
+    login(values.email, values.password)
+      .then((response) => {
+        console.log(response);
+        toast({
+          description: "User Logged in Succesfully!",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      })
+      .catch((err) => {
+        toast({
+          description: err.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      })
+      .finally(() => {
+        history("/home");
+      });
+  };
 
-
-  const handleResetPassword =  (e) => {
+  const handleResetPassword = (e) => {
     e.preventDefault();
     forgotPassword(values.resetEmail)
       .then(() => {
@@ -70,7 +71,7 @@ function Login() {
           duration: 6000,
           isClosable: true,
         });
-        initialRef.current.value=""
+        initialRef.current.value = "";
       })
       .catch((err) => {
         toast({
@@ -151,7 +152,8 @@ function Login() {
                 value={values.resetEmail}
                 onChange={handleChange}
                 onBlur={handleBlur}
-              />̥
+              />
+              ̥
               {errors.resetEmail && touched.resetEmail ? (
                 <p className="text-red-600 text-xs font-mono">
                   {errors.resetEmail}
