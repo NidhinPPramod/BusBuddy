@@ -1,9 +1,12 @@
+import { Spinner } from "@chakra-ui/react";
 import React from "react";
+import { useUserDetail } from "../../../Contexts/UserContext";
 import BellIcon from "../../../images/Bell.svg";
 import BusFront from "../../../images/BusFront.svg";
 import "./Home.css";
 
 function Home() {
+  const { values } = useUserDetail();
   return (
     <div>
       <div className="home-card flex flex-col justify-between">
@@ -12,7 +15,13 @@ function Home() {
           <img src={BusFront} alt="" />
         </div>
         <div className="w-100 flex justify-center">
-          <p className="text-white tracking-widest text-xl">NIDHIN P PRAMOD</p>
+          {values ? (
+            <p className="text-white tracking-widest text-xl">
+              {values.firstName} {values.lastName}
+            </p>
+          ) : (
+            <Spinner color="white" />
+          )}
         </div>
         <div className="flex flex-col items-start text-white pl-8 py-3">
           <p>EXPIRY</p>
@@ -20,7 +29,9 @@ function Home() {
         </div>
       </div>
       <div className="flex mt-8">
-        <h1 className="font-mono tracking-widest mr-1 text-lg">NOTIFICATIONS</h1>
+        <h1 className="font-mono tracking-widest mr-1 text-lg">
+          NOTIFICATIONS
+        </h1>
         <img src={BellIcon} alt="" />
       </div>
       <div className="scrollable-div flex flex-col w-100 ">

@@ -40,6 +40,7 @@ export default function AuthContextProvider({ children }) {
   function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
   }
+
   
   function signInWithGoogle() {
     const provider=new GoogleAuthProvider()
@@ -51,8 +52,8 @@ export default function AuthContextProvider({ children }) {
       url:`http://localhost:3000/login`,
     })
   }
-  
 
+  
   function logout() {
     return signOut(auth);
   }
