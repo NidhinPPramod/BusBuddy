@@ -47,7 +47,7 @@ function DriverPanel() {
           </button>
         </div>
       </div>
-      <div className="scroll flex flex-col w-100 ">
+      <div className="scroll flex flex-col w-100 justify-center items-center ">
         <div className="notifi px-3 py-3 my-3">
           Lorem Ipsum is simply dummy text of the printing and typesetting
         </div>
