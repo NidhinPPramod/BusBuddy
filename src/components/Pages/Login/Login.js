@@ -44,9 +44,10 @@ function Login() {
         toast({
           description: "User Logged in Succesfully!",
           status: "success",
-          duration: 3000,
+          duration: 2000,
           isClosable: true,
         });
+        history('/home')
       })
       .catch((err) => {
         toast({
@@ -56,9 +57,6 @@ function Login() {
           isClosable: true,
         });
       })
-      .finally(() => {
-        history("/home");
-      });
   };
 
   const handleResetPassword = (e) => {
