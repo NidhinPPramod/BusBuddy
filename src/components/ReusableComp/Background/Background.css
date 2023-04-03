@@ -1,12 +1,14 @@
-.background{
-    display: flex;
-    height: 100%;
-    background: linear-gradient(
-        to bottom,
-        #222831 0%,
-        #222831 25%,
-        #EEEEEE 25%,
-        #EEEEEE 100%
-
-    );
+.background {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    #222831 0%,
+    #222831 25%,
+    #eeeeee 25%,
+    #eeeeee 100%
+  );
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

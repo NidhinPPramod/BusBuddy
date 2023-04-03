@@ -16,8 +16,8 @@
   border-radius: 20px;
 }
 .scrollable-div {
-  min-height: 21rem;
-  max-height: 25rem;
+  min-height: 26.3rem;
+  max-height: 22rem;
   overflow: auto;
 }
 .scrollable-div::-webkit-scrollbar {
