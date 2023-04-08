@@ -17,6 +17,7 @@ function Account() {
   const signOut=()=>{
     logout()
     history("/login")
+    window.location.reload()
   }
 
   const { values } = useUserDetail();

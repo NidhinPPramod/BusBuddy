@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { logInSchema } from "../../../Schemas/index";
 import { useToast } from "@chakra-ui/react";
 import { useAuth } from "../../../Contexts/AuthContext";
+import { useUserDetail } from "../../../Contexts/UserContext";
 
 const initialValues = {
   email: "",
@@ -22,6 +23,8 @@ const initialValues = {
 };
 
 function Login() {
+  
+  const { fetchDetails } = useUserDetail();
   const history = useNavigate();
 
   const initialRef = useRef(null);
@@ -36,27 +39,30 @@ function Login() {
     validationSchema: logInSchema,
   });
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    login(values.email, values.password)
-      .then((response) => {
-        console.log(response);
-        toast({
-          description: "User Logged in Succesfully!",
-          status: "success",
-          duration: 2000,
-          isClosable: true,
-        });
-        history('/home')
-      })
-      .catch((err) => {
-        toast({
-          description: err.message,
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-      })
+    try {
+      const userAuth = await login(values.email, values.password);
+      toast({
+        description: "User Logged in Succesfully!",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+      const userDoc = await fetchDetails("userDetails", userAuth.user.uid);
+      if (userDoc._document !== null) {
+        history("/home");
+      } else {
+        history("/userdetails");
+      }
+    } catch (error) {
+      toast({
+        description: error.message,
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+    }
   };
 
   const handleResetPassword = (e) => {

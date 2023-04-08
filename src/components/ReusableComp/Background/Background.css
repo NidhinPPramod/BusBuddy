@@ -1,6 +1,5 @@
 .background {
-  display: flex;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(
     to bottom,
     #222831 0%,

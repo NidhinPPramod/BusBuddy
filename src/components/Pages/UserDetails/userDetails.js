@@ -1,5 +1,6 @@
 import { useToast } from "@chakra-ui/react";
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import { useUserDetail } from "../../../Contexts/UserContext";
 import { userDetailSchema } from "../../../Schemas/index";
@@ -14,6 +15,7 @@ const initialValues = {
 };
 
 function UserDetails() {
+  const history = useNavigate();
   const { addDetails } = useUserDetail();
 
   const toast = useToast();
@@ -43,6 +45,8 @@ function UserDetails() {
           duration: 5000,
           isClosable: true,
         });
+        history("/home");
+        window.location.reload()
       })
       .catch((err) => {
         toast({
