@@ -11,6 +11,7 @@ import SignUpPage from "../Pages/SignUp/SignUpPage";
 import EditPage from "../Pages/Edit/EditPage";
 
 import UserDetailsPage from "../Pages/UserDetails/userDetailsPage";
+import Payment from "../Pages/Payment/Payment";
 
 
 
@@ -24,7 +25,7 @@ function AppRouter() {
       <Router>
         <Routes>
           <Route index path="/" element={<SignUpPage />} />
-          {/** PROTECTED ROUTES*/}
+          
           <Route path="/home" element={<HomePage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/location" element={<LocationPage />} />

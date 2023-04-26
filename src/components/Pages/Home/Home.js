@@ -34,7 +34,7 @@ function Home() {
         </h1>
         <img src={BellIcon} alt="" />
       </div>
-      <div className="scrollable-div flex flex-col w-100 ">
+      <div className="scrollable-div flex flex-col w-100 mb-24 ">
         <div className="notification-card px-3 py-3 my-3">
           Lorem Ipsum is simply dummy text of the printing and typesetting
         </div>

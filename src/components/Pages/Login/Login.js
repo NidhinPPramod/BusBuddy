@@ -15,6 +15,7 @@ import { logInSchema } from "../../../Schemas/index";
 import { useToast } from "@chakra-ui/react";
 import { useAuth } from "../../../Contexts/AuthContext";
 import { useUserDetail } from "../../../Contexts/UserContext";
+import { useDriverDetail } from "../../../Contexts/DriverContext";
 
 const initialValues = {
   email: "",
@@ -23,7 +24,6 @@ const initialValues = {
 };
 
 function Login() {
-  
   const { fetchDetails } = useUserDetail();
   const history = useNavigate();
 
@@ -33,6 +33,7 @@ function Login() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { login, forgotPassword } = useAuth();
+  const { checkDriver } = useDriverDetail();
 
   const { values, errors, handleChange, handleBlur, touched } = useFormik({
     initialValues: initialValues,
@@ -49,6 +50,11 @@ function Login() {
         duration: 2000,
         isClosable: true,
       });
+      
+      if (await checkDriver(userAuth.user.uid)) {
+        history("/driverpanel");
+        return;
+      }
       const userDoc = await fetchDetails("userDetails", userAuth.user.uid);
       if (userDoc._document !== null) {
         history("/home");

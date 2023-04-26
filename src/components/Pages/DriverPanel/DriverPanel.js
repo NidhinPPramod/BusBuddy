@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import GearIcon from "../../../images/gear.svg";
 import BellIcon from "../../../images/Bell.svg";
 import {
@@ -14,10 +14,26 @@ import {
   useDisclosure,
   Textarea,
 } from "@chakra-ui/react";
+
 import "./DriverPanel.css";
+import { useDriverDetail } from "../../../Contexts/DriverContext";
+import { useAuth } from "../../../Contexts/AuthContext";
 
 function DriverPanel() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { getDriverCoordinates, isOn, setOn, addDetails } = useDriverDetail();
+  const { currentUser } = useAuth();
+
+  useEffect(() => {
+    console.log(isOn);
+    if (isOn) {
+      addDetails("locations", currentUser.uid);
+    }
+    return () => {
+      setOn(false);
+    };
+  });
+
   return (
     <div className="blue-card flex flex-col items-center mb-28 px-2 py-2 text-white">
       <div className="flex  justify-end w-100 mr-8 my-2">
@@ -29,7 +45,7 @@ function DriverPanel() {
       </div>
       <div className="flex justify-between items-center w-100 mt-6 px-3 bg-faded-blue py-3 rounded-2xl ">
         <h1 className="text-lg">Location</h1>
-        <Switch size="lg" colorScheme="red" />
+        <Switch size="lg" colorScheme="red" onChange={getDriverCoordinates} />
       </div>
       <div className="flex text-black w-100 mt-3 px-3 items-center justify-between">
         <div className="flex items-center">
@@ -67,7 +83,7 @@ function DriverPanel() {
           <ModalHeader>Post Notification</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <Textarea placeholder="Enter notification!" size="lg"  />
+            <Textarea placeholder="Enter notification!" size="lg" />
           </ModalBody>
           <ModalFooter>
             <div className="flex items-center justify-center w-100">

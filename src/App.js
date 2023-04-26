@@ -1,14 +1,17 @@
 import "./App.css";
 import AppRouter from "./components/AppRouter/AppRouter";
 import AuthContextProvider from "./Contexts/AuthContext";
+import DriverContextProvider from "./Contexts/DriverContext";
 import UserContextProvider from "./Contexts/UserContext";
 
 function App() {
   return (
     <AuthContextProvider>
-      <UserContextProvider>
-        <AppRouter />
-      </UserContextProvider>
+      <DriverContextProvider>
+        <UserContextProvider>
+          <AppRouter />
+        </UserContextProvider>
+      </DriverContextProvider>
     </AuthContextProvider>
   );
 }
