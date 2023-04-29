@@ -5,15 +5,14 @@ import {
   doc,
   getDocs,
   query,
-  setDoc,
+  updateDoc,
   where,
 } from "firebase/firestore";
 
-
 const DriverContext = createContext({
   latlng: null,
-  isOn: null,
-  driverlatlng:null,
+  isOn: false,
+  driverlatlng: null,
   setOn: () => Function,
   getDriverCoordinates: () => Function,
   checkDriver: () => Promise,
@@ -24,11 +23,9 @@ const DriverContext = createContext({
 export const useDriverDetail = () => useContext(DriverContext);
 
 export default function DriverContextProvider({ children }) {
-
   const [latlng, setLatLng] = useState(null);
   const [driverlatlng, setdriverLatLng] = useState(null);
-  const [isOn, setOn] = useState(null);
-
+  const [isOn, setOn] = useState(false);
 
   const BusUid = [
     "nvAaPUkdMJSi1k5FQ5ixC9G6Jg63",
@@ -37,34 +34,40 @@ export default function DriverContextProvider({ children }) {
   ];
 
   async function getDriverCoordinates() {
-    await navigator.geolocation.watchPosition((pos) => {
-      const coord = [pos.coords.latitude, pos.coords.longitude];
-      console.log(coord);
-      setLatLng(coord);
-      setOn(true);
-    });
+    try {
+      await navigator.geolocation.watchPosition((pos) => {
+        const coord = [pos.coords.latitude, pos.coords.longitude];
+        console.log(coord);
+        setLatLng(coord);
+        setOn(true);
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   function addDetails(collectionRef, userid) {
-    setDoc(doc(db, collectionRef, userid), {
-      latitude: latlng[0],
-      longitude: latlng[1],
-    });
+    if (latlng?.[0] && latlng?.[1]) {
+      updateDoc(doc(db, collectionRef, userid), {
+        latitude: latlng[0],
+        longitude: latlng[1],
+      });
+    }
   }
 
   async function fetchlocDetails(busno) {
     try {
-       console.log(busno);
+      console.log(busno);
       const q = query(
         collection(db, "locations"),
         where("busNumber", "==", busno)
       );
       const docSnap = await getDocs(q);
       console.log("reach");
-      docSnap.forEach((doc)=>{
-       const locdata=[doc.data().latitude,doc.data().longitude]
-        setdriverLatLng(locdata)
-      })
+      docSnap.forEach((doc) => {
+        const locdata = [doc.data().latitude, doc.data().longitude];
+        setdriverLatLng(locdata);
+      });
     } catch (error) {
       console.log(error.message);
     }

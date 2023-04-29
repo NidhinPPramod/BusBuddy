@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import GearIcon from "../../../images/gear.svg";
 import BellIcon from "../../../images/Bell.svg";
 import {
@@ -20,19 +20,27 @@ import { useDriverDetail } from "../../../Contexts/DriverContext";
 import { useAuth } from "../../../Contexts/AuthContext";
 
 function DriverPanel() {
+  const [isLoc,setIsLoc]=useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { getDriverCoordinates, isOn, setOn, addDetails } = useDriverDetail();
   const { currentUser } = useAuth();
 
   useEffect(() => {
     console.log(isOn);
-    if (isOn) {
+    console.log(isLoc);
+    if (isLoc) {
       addDetails("locations", currentUser.uid);
     }
-    return () => {
-      setOn(false);
-    };
+    // return () => {
+    //   setOn(false);
+    // };
   });
+
+  const handleSwitch=()=>{
+    setIsLoc(!isLoc)
+    setOn(!isOn)
+    getDriverCoordinates()
+  }
 
   return (
     <div className="blue-card flex flex-col items-center mb-28 px-2 py-2 text-white">
@@ -45,7 +53,7 @@ function DriverPanel() {
       </div>
       <div className="flex justify-between items-center w-100 mt-6 px-3 bg-faded-blue py-3 rounded-2xl ">
         <h1 className="text-lg">Location</h1>
-        <Switch size="lg" colorScheme="red" onChange={getDriverCoordinates} />
+        <Switch size="lg" colorScheme="red" onChange={handleSwitch}  />
       </div>
       <div className="flex text-black w-100 mt-3 px-3 items-center justify-between">
         <div className="flex items-center">
