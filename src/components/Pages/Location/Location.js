@@ -12,7 +12,7 @@ function Location() {
     
      useEffect(() => {
       fetchlocDetails(values?.busNumber);
-    },[]);
+    },);
 
 
   let UserIcon = L.icon({
