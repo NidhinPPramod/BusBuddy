@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Location.css";
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker ,useMapEvents} from "react-leaflet";
 import L from "leaflet";
 import icon from "../../../images/userloc.png";
 import { useDriverDetail } from "../../../Contexts/DriverContext";
@@ -27,9 +27,10 @@ function Location() {
       },
       locationfound(e) {
         setPosition(e.latlng);
-        map.flyTo(e.latlng, 17);
+        map.flyTo(e.latlng, 15);
       },
     });
+   
 
     return position === null ? (
       <Marker position={[10.0455999, 76.3291185]} icon={UserIcon}></Marker>
@@ -40,7 +41,6 @@ function Location() {
 
   const DriverLocationMarker = () => {
     
-
     return driverlatlng === null ? (
       <Marker position={[51.507351,-0.127758]} icon={UserIcon}></Marker>
     ) : (
