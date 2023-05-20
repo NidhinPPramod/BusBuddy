@@ -82,16 +82,16 @@ function Account() {
       </div>
       <div className="flex w-100 justify-around">
         <div
-          className="bg-faded-blue rounded-full h-20 w-20 flex justify-center items-center"
+          className="bg-faded-blue rounded-full h-20 w-20 flex justify-center items-center cursor-pointer"
           onClick={() => checkoutHandler(80)}>
           <img src={CashIcon} alt="" className="h-13 w-13 " />
         </div>
         <div
-          className="bg-faded-blue rounded-full h-20 w-20 flex justify-center items-center"
+          className="bg-faded-blue rounded-full h-20 w-20 flex justify-center items-center cursor-pointer"
           onClick={() => history("/edit")}>
           <img src={PenIcon} alt="" className="h-8 w-8 " />
         </div>
-        <div className="bg-faded-blue rounded-full h-20 w-20 flex justify-center items-center ">
+        <div className="bg-faded-blue rounded-full h-20 w-20 flex justify-center items-center cursor-pointer ">
           <img src={DocIcon} alt="" className="h-8 w-8 " />
         </div>
       </div>

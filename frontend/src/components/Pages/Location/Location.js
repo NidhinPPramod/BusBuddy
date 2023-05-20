@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./Location.css";
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import L from "leaflet";
 import icon from "../../../images/userloc.png";
 import { useDriverDetail } from "../../../Contexts/DriverContext";
 import { useUserDetail } from "../../../Contexts/UserContext";
 
 function Location() {
+  const [position, setPosition] = useState(null);
   const { fetchlocDetails, driverlatlng } = useDriverDetail();
   const { values } = useUserDetail();
 
   useEffect(() => {
+    navigator.geolocation.getCurrentPosition((pos)=>{
+      setPosition([pos.coords.latitude,pos.coords.longitude])
+    })
     fetchlocDetails(values?.busNumber);
   },);
 
@@ -18,20 +22,8 @@ function Location() {
     iconUrl: icon,
   });
 
-  const UserLocationMarker = () => {
-    const [position, setPosition] = useState(null);
-    const map = useMapEvents({
-      click() {
-        map.locate();
-      },
-      locationfound(e) {
-        setPosition(e.latlng);
-        map.flyTo(e.latlng, 18);
-      },
-    });
 
-    return position !== null && <Marker position={position} icon={UserIcon} />;
-  };
+
 
   const DriverLocationMarker = () => {
     return (
@@ -46,12 +38,12 @@ function Location() {
       center={[10.0455999, 76.3291185]}
       zoom={10}
       scrollWheelZoom={false}
-      className="map-container mb-32">
+      className="map-container mb-32 z-10">
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <UserLocationMarker />
+      {position && <Marker position={position} icon={UserIcon}/>}
       <DriverLocationMarker />
     </MapContainer>
   );

@@ -7,7 +7,7 @@ import AccountIcon from "../../../images/Account.svg";
 
 function Navbar() {
   return (
-    <div className='navbar w-100 flex flex-row justify-around'>
+    <div className='navbar w-100 flex flex-row justify-around z-20'>
       <Link to='/location'>
         <div>
            <img className="w-14 h-12" src={LocationIcon} alt=""/>
