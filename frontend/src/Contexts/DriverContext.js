@@ -35,20 +35,24 @@ export default function DriverContextProvider({ children }) {
 
   async function getDriverCoordinates() {
     try {
-      await navigator.geolocation.watchPosition((pos) => {
+      const successHandler = function(pos) {
         const coord = [pos.coords.latitude, pos.coords.longitude];
-        console.log(coord);
-        setLatLng(coord);
-        setOn(true);
-      });
+        console.log(coord)
+        setLatLng(coord)
+        setOn(true)
+      };
+      const errorHandler = function (errorObj) {
+        alert(errorObj.code + ": " + errorObj.message);
+      };
+      navigator.geolocation.watchPosition(successHandler,errorHandler,{enableHighAccuracy:true,maximumAge:10000})
     } catch (error) {
       console.log(error.message);
     }
   }
 
-  function addDetails(collectionRef, userid) {
+  async  function  addDetails(collectionRef, userid) {
     if (latlng?.[0] && latlng?.[1]) {
-      updateDoc(doc(db, collectionRef, userid), {
+      await updateDoc(doc(db, collectionRef, userid), {
         latitude: latlng[0],
         longitude: latlng[1],
       });

@@ -12,9 +12,13 @@ function Location() {
   const { values } = useUserDetail();
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((pos)=>{
+    const successHandler = function(pos) {
       setPosition([pos.coords.latitude,pos.coords.longitude])
-    })
+    };
+    const errorHandler = function (errorObj) {
+      alert(errorObj.code + ": " + errorObj.message);
+    };
+    navigator.geolocation.getCurrentPosition(successHandler,errorHandler,{enableHighAccuracy:true,maximumAge:10000})
     fetchlocDetails(values?.busNumber);
   },);
 
