@@ -37,7 +37,6 @@ export default function DriverContextProvider({ children }) {
     try {
       const successHandler = function(pos) {
         const coord = [pos.coords.latitude, pos.coords.longitude];
-        console.log(coord)
         setLatLng(coord)
         setOn(true)
       };
@@ -61,13 +60,11 @@ export default function DriverContextProvider({ children }) {
 
   async function fetchlocDetails(busno) {
     try {
-      console.log(busno);
       const q = query(
         collection(db, "locations"),
         where("busNumber", "==", busno)
       );
       const docSnap = await getDocs(q);
-      console.log("reach");
       docSnap.forEach((doc) => {
         const locdata = [doc.data().latitude, doc.data().longitude];
         setdriverLatLng(locdata);
@@ -88,13 +85,7 @@ export default function DriverContextProvider({ children }) {
     return found;
   }
 
-  //   function addDetails(collectionRef, data) {
-  //     return setDoc(doc(db, collectionRef, `${currentUser.uid}`), {
-  //       id: currentUser.uid.slice(0, 5),
-  //       ...data,
-  //     });
-  //   }
-
+  
   const value = {
     latlng,
     isOn,
