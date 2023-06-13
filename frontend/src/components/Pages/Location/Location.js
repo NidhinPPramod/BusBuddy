@@ -3,6 +3,7 @@ import "./Location.css";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import L from "leaflet";
 import icon from "../../../images/userloc.png";
+import BusLocationIcon from "../../../images/busloc.png";
 import { useDriverDetail } from "../../../Contexts/DriverContext";
 import { useUserDetail } from "../../../Contexts/UserContext";
 
@@ -26,13 +27,17 @@ function Location() {
     iconUrl: icon,
   });
 
+  let BusIcon = L.icon({
+    iconUrl: BusLocationIcon
+  });
+
 
 
 
   const DriverLocationMarker = () => {
     return (
       driverlatlng !== null && (
-        <Marker position={driverlatlng} icon={UserIcon}></Marker>
+        <Marker position={driverlatlng} icon={BusIcon}></Marker>
       )
     );
   };
