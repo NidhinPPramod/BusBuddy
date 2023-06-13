@@ -39,6 +39,7 @@ function Bluecard({ Children, text, isLoginPage = false }) {
     }
   };
 
+  
   return (
     <div
       className={`${
