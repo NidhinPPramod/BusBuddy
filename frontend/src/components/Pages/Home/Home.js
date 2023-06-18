@@ -22,6 +22,20 @@ function Home() {
     notifidetails();
   }, [values]);
 
+  const getLastDateOfMonth = () => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1; // Months are zero-based
+
+    // Calculate the last date of the current month
+    const lastDay = new Date(year, month, 0).getDate();
+
+    // Format the date as "dd/mm/yy"
+    const formattedDate = `${lastDay.toString().padStart(2, '0')}/${month.toString().padStart(2, '0')}/${year.toString().slice(-2)}`;
+
+    return formattedDate;
+  };
+
   return (
     <div>
       <div className="home-card flex flex-col justify-between">
@@ -40,7 +54,7 @@ function Home() {
         </div>
         <div className="flex flex-col items-start text-white pl-8 py-3">
           <p>EXPIRY</p>
-          <p>01/31</p>
+          <p>{getLastDateOfMonth()}</p>
         </div>
       </div>
       <div className="flex mt-8">

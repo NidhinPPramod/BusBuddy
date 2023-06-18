@@ -42,6 +42,12 @@ function UserDetails() {
       firstName: values.firstName,
       lastName: values.lastName,
       phoneNumber: values.phoneNumber,
+      Paymentdetails:{
+        isPayed:false,
+        razorpay_order_id: "",
+        razorpay_payment_id: "",
+        razorpay_signature: "",
+      },
       busNumber: values.busNumber,
       destination: values.destination,
     };

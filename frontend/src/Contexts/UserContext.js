@@ -63,6 +63,7 @@ export default function UserContextProvider({ children }) {
     return getDoc(doc(db, collectionRef, docId));
   }
 
+
   function updateDetails(collectionRef, data) {}
 
   const value = {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../Contexts/AuthContext";
 import "./Account.css";
@@ -6,14 +6,32 @@ import PenIcon from "../../../images/pen.svg";
 import DocIcon from "../../../images/document.svg";
 import CashIcon from "../../../images/cash.svg";
 import { useUserDetail } from "../../../Contexts/UserContext";
-import { Avatar, Skeleton, SkeletonCircle } from "@chakra-ui/react";
+import {Avatar, Skeleton, SkeletonCircle, useToast} from "@chakra-ui/react";
 import axios from "axios";
 
 
 function Account() {
+  const [isPayed,setIsPayed]=useState(false)
+
   const { logout,currentUser} = useAuth();
+  const {fetchDetails}=useUserDetail()
+
+  const toast=useToast();
 
   const history = useNavigate();
+
+   useEffect(() => {
+     async function paymentDetails() {
+       try {
+         const res = await fetchDetails("userDetails", currentUser?.uid);
+         const pay=res.data()?.Paymentdetails?.isPayed;
+         setIsPayed(pay);
+       } catch (error) {
+         console.log(error.message);
+       }
+     }
+     paymentDetails();
+   },);
 
   const signOut = () => {
     logout();
@@ -23,8 +41,18 @@ function Account() {
 
   const { values } = useUserDetail();
 
+  console.log(currentUser)
+
   const checkoutHandler = async (amount) => {
-  
+    if (isPayed){
+        toast({
+            description: "You have already paid for this month",
+            status: "warning",
+            duration: 5000,
+            isClosable: true,
+        })
+        return;
+    }
     const {
       data: { key },
     } = await axios.get("http://localhost:4000/api/getkey");
@@ -44,9 +72,9 @@ function Account() {
       order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
       callback_url: "http://localhost:4000/api/paymentverification",
       prefill: {
-        name: "Gaurav Kumar",
-        email: "gaurav.kumar@example.com",
-        contact: "9000090000",
+        name: "",
+        email: "",
+        contact: "",
       },
       notes: {
         address: "Razorpay Corporate Office",
@@ -111,16 +139,6 @@ function Account() {
         onClick={signOut}>
         LogOut
       </button>
-      {/* <Modal isOpen={ispayOpen} onClose={onpayClose} isCentered size="xs">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader className="text-center">Payment</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={12} className="flex items-center justify-center">
-            <Payment />
-          </ModalBody>
-        </ModalContent>
-      </Modal> */}
     </div>
   );
 }
