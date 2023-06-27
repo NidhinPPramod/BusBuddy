@@ -7,6 +7,7 @@ import DocIcon from "../../../images/document.svg";
 import CashIcon from "../../../images/cash.svg";
 import { useUserDetail } from "../../../Contexts/UserContext";
 import {Avatar, Skeleton, SkeletonCircle, useToast} from "@chakra-ui/react";
+import PaidIcon from "../../../images/PaidIcon.svg"
 import axios from "axios";
 
 
@@ -41,7 +42,7 @@ function Account() {
 
   const { values } = useUserDetail();
 
-  console.log(currentUser)
+  console.log(values)
 
   const checkoutHandler = async (amount) => {
     if (isPayed){
@@ -88,7 +89,7 @@ function Account() {
   };
 
   return (
-    <div className="account-card flex flex-col items-center mb-36 px-2 py-2 ">
+    <div className="account-card flex flex-col items-center mb-36 px-2 py-2 gap-2">
       <div className="flex w-100 px-2 py-4 my-3 justify-center items-center">
         <div className="mr-5 h-16 w-16">
           {values ? (
@@ -128,17 +129,28 @@ function Account() {
         <p>Edit Profile</p>
         <p>Feedback</p>
       </div>
+      {!values?.Paymentdetails?.isPayed ?<div>
       <div className="price text-white text-8xl flex justify-center items-center mt-4 font-black mb-3">
         <p>₹80</p>
       </div>
-      <div className="warning-card flex justify-center items-center text-white tracking-widest font-mono font-medium mt-3">
+      <div className="warning-card flex justify-center items-center text-yellow-300 tracking-widest font-mono font-medium mt-3">
         <p>Bill yet to be paid!</p>
       </div>
-      <button
-        className="bg-faded-blue text-white rounded-xl px-5 py-2 text-lg mt-4"
+      </div>:<div className="flex flex-col items-center mt-4">
+        <img src={PaidIcon} height="84px" width="84px" alt="paidicon"/>
+
+        <div className="warning-card flex justify-center items-center text-green-500 tracking-widest font-mono font-medium mt-3">
+        <p>Paid Successfully!</p>
+      </div>
+        </div>}
+        <div className="flex-grow items-end flex pb-4">
+        <button
+        className="bg-faded-blue text-white rounded-xl px-5 py-2 text-lg mt-4 "
         onClick={signOut}>
         LogOut
       </button>
+        </div>
+      
     </div>
   );
 }
