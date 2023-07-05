@@ -13,7 +13,7 @@ const initialValues = {
 };
 
 function SignUp() {
-  // const history = useNavigate();
+  const history = useNavigate();
 
   const toast = useToast();
 
@@ -31,6 +31,7 @@ function SignUp() {
             duration: 5000,
             isClosable: true,
           });
+          history("/login")
         }).catch((err)=>{
           toast({
             description:err.message,

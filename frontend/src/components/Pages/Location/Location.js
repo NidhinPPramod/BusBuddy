@@ -19,7 +19,7 @@ function Location() {
     const errorHandler = function (errorObj) {
       alert(errorObj.code + ": " + errorObj.message);
     };
-    navigator.geolocation.getCurrentPosition(successHandler,errorHandler,{enableHighAccuracy:true,maximumAge:10000})
+    navigator.geolocation.getCurrentPosition(successHandler,errorHandler,{timeout:10000})
     fetchlocDetails(values?.busNumber);
   },);
 
