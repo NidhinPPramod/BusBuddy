@@ -32,8 +32,6 @@ function AppRouter() {
           <Route path="/driverpanel" element={<DriverPanelPage />} />
           <Route path="/userdetails" element={<UserDetailsPage/>} />
           <Route path="/login" element={<LoginPage />} />
-
-          
         </Routes>
       </Router>
     </>
