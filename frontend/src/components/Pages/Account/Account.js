@@ -56,11 +56,11 @@ function Account() {
     }
     const {
       data: { key },
-    } = await axios.get("http://localhost:4000/api/getkey");
+    } = await axios.get("https://busbuddybackend.onrender.com/api/getkey");
 
     const {
       data: { order },
-    } = await axios.post("http://localhost:4000/api/checkout", {
+    } = await axios.post("https://busbuddybackend.onrender.com/api/checkout", {
       amount,uid:currentUser.uid,
     });
 
@@ -71,7 +71,7 @@ function Account() {
       name: "BusBuddy",
       description: "MontlyPayment",
       order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      callback_url: "http://localhost:4000/api/paymentverification",
+      callback_url: "https://busbuddybackend.onrender.com/api/paymentverification",
       prefill: {
         name: "",
         email: "",
