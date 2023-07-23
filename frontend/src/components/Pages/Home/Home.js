@@ -13,7 +13,6 @@ function Home() {
     async function notifidetails() {
       try {
         const res = await fetchDetails("notifications", values?.busNumber);
-        console.log(res.data());
         setData(res.data().text);
       } catch (error) {
         console.log(error.message);

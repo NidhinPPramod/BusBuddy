@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./Edit.css";
-import { Avatar } from '@chakra-ui/react';
+import { Avatar, useToast } from '@chakra-ui/react';
 import backarrow from "../../../images/backarrow.svg";
 import { useUserDetail } from "../../../Contexts/UserContext";
 import { useAuth } from "../../../Contexts/AuthContext";
@@ -21,6 +21,8 @@ function Edit() {
   const { fetchDetails, updateDetails } = useUserDetail();
   const { currentUser } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const toast = useToast();
 
   useEffect(() => {
     async function editDetails() {

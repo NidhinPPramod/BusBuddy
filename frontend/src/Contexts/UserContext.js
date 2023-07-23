@@ -13,6 +13,7 @@ const UserContext = createContext({
   addDetails: () => Promise,
   fetchDetails: () => Promise,
   updateDetails: () => Promise,
+  postfeedback: () => Promise,
   ImageUpload: () => Promise,
 });
 
@@ -70,6 +71,10 @@ export default function UserContextProvider({ children }) {
     );
   }
 
+  function postfeedback(data){
+    return setDoc(doc(db,"feedback",`${currentUser.uid}`),{feedback:data});
+  }
+
   const value = {
     values,
     setUploading,
@@ -80,6 +85,7 @@ export default function UserContextProvider({ children }) {
     ImageUpload,
     fetchDetails,
     updateDetails,
+    postfeedback,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
