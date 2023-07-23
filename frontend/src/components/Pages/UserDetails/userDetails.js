@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import { useUserDetail } from "../../../Contexts/UserContext";
 import { userDetailSchema } from "../../../Schemas/index";
 import {
@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import "./userDetails.css";
 import ImageCropper from "../../Utils/ImageCrop/ImageCropper";
+import BusNotice from "../../../images/busInfo.svg"
 
 const initialValues = {
   firstName: "",
@@ -25,11 +26,16 @@ const initialValues = {
 };
 
 function UserDetails() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isImageOpen, onOpen: onImageOpen, onClose: onImageClose } = useDisclosure();
+  const { isOpen: isNoticeOpen, onOpen: onNoticeOpen, onClose: onNoticeClose } = useDisclosure();
   const history = useNavigate();
   const { addDetails, isUploaded } = useUserDetail();
 
   const toast = useToast();
+
+  useEffect(() => {
+    onNoticeOpen()
+  }, [])
 
   const { values, errors, handleChange, handleBlur, touched } = useFormik({
     initialValues: initialValues,
@@ -42,8 +48,8 @@ function UserDetails() {
       firstName: values.firstName,
       lastName: values.lastName,
       phoneNumber: values.phoneNumber,
-      Paymentdetails:{
-        isPayed:false,
+      Paymentdetails: {
+        isPayed: false,
         razorpay_order_id: "",
         razorpay_payment_id: "",
         razorpay_signature: "",
@@ -160,7 +166,7 @@ function UserDetails() {
           <p className="text-lg mx-3 my-2 font-medium">Upload Image:</p>
           <div className="w-64 h-8 border-dashed border-2 rounded-2xl flex items-center justify-center ml-9 py-3 mb-2">
             {!isUploaded ? (
-              <button className="text-white" onClick={onOpen}>
+              <button className="text-white" onClick={onImageOpen}>
                 Choose File
               </button>
             ) : (
@@ -174,13 +180,22 @@ function UserDetails() {
             Submit
           </button>
         </div>
-        <Modal isOpen={isOpen} onClose={onClose} isCentered size="xs">
+        <Modal isOpen={isImageOpen} onClose={onImageClose} isCentered size="xs">
           <ModalOverlay />
           <ModalContent>
             <ModalHeader className="text-center">Profile Picture</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={12} className="flex items-center justify-center">
               <ImageCropper />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+        <Modal isOpen={isNoticeOpen} onClose={onNoticeClose} isCentered size="xs">
+          <ModalOverlay />
+          <ModalContent>
+          <ModalCloseButton />
+            <ModalBody pb={12} pt={12} className="flex items-center justify-center">
+             <img src={BusNotice} alt=""/>
             </ModalBody>
           </ModalContent>
         </Modal>

@@ -21,7 +21,7 @@ export const logInSchema = yup.object({
 export const userDetailSchema = yup.object({
   firstName: yup.string().required("This field is required!"),
   lastName: yup.string().required("This field is required!"),
-  phoneNumber: yup.string().required("This field is required!").matches(phoneRegExp,"Phone number is not valid!"),
+  phoneNumber: yup.string().min(10).max(10).required("This field is required!").matches(phoneRegExp,"Phone number is not valid!"),
   busNumber: yup.string().required("This field is required!").oneOf(busno,"Enter a valid bus number!"),
   destination: yup.string().required("This field is required!"), 
 });
