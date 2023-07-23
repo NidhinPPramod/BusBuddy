@@ -64,7 +64,11 @@ export default function UserContextProvider({ children }) {
   }
 
 
-  function updateDetails(collectionRef, data) {}
+  function updateDetails(collectionRef,firstname,lastname,ph_no,bus_no) {
+    return setDoc(doc(db, collectionRef,`${currentUser.uid}`), {firstName:firstname,lastName:lastname,phoneNumber:ph_no,busNumber:bus_no,
+      },{merge:true}
+    );
+  }
 
   const value = {
     values,

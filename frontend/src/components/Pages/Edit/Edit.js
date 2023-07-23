@@ -19,7 +19,7 @@ import ImageCropper from "../../Utils/ImageCrop/ImageCropper";
 
 function Edit() {
   const [data, setData] = useState(null);
-  const {fetchDetails} = useUserDetail();
+  const {fetchDetails,updateDetails} = useUserDetail();
   const {currentUser} = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -48,10 +48,9 @@ function Edit() {
   }, [data]);
 
   const handlesubmit = () => {
-    console.log(firstname);
-    console.log(lastname);
-    console.log(phonenumber);
-    console.log(busnumber);
+    updateDetails("userDetails",firstname,lastname,phonenumber,busnumber);
+    history("/account")
+    window.location.reload()
   };
 
   return (
